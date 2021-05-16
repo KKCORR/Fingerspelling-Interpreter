@@ -46,7 +46,7 @@ class App:
         # Output text from model
         self.output_text = tkinter.StringVar()
         self.output_text_label = tkinter.Label(
-            window, textvariable=self.output_text, width=50, font=("Arial", 25))
+            window, textvariable=self.output_text, width=50, font=("TH Sarabun New", 25))
         self.output_text.set("")
         self.output_text_label.pack(anchor=tkinter.CENTER, expand=True)
 
