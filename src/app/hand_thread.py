@@ -7,7 +7,7 @@ import time
 
 
 class HandThread(StoppableThread):
-    def __init__(self, application=None, acceptable_dist=0.20, consecutive_seq=20, consecutive_letter=5):
+    def __init__(self, application=None, acceptable_dist=0.20, consecutive_seq=10, consecutive_letter=5):
         super().__init__()
         self.application = application
         self.hand_landmarker = HandLandmark()
