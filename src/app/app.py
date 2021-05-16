@@ -99,6 +99,7 @@ class App:
             # Start predictor thread
             self.hand_thread = HandThread(self)
             self.hand_thread.start()
+            self.record_btn.configure(bg="#fc5656", fg="#ffffff")
         else:
             self.hand_thread.stop()
             self.output_text.set("")
