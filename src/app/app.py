@@ -8,7 +8,7 @@ from app_video_capture import AppVideoCapture
 
 
 class App:
-    def __init__(self, window, window_title, video_source=0):
+    def __init__(self, window, window_title, delay=15, video_source=0):
         self.window = window
         self.window.title(window_title)
         self.video_source = video_source
@@ -37,7 +37,7 @@ class App:
         self.output_text_label.pack(anchor=tkinter.CENTER, expand=True)
 
         # After it is called once, the update method will be automatically called every delay milliseconds
-        self.delay = 15
+        self.delay = delay
         self.update()
 
         self.window.mainloop()
