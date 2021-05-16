@@ -63,10 +63,6 @@ class App:
                 image=PIL.Image.fromarray(cv2.flip(frame, 1)))
             self.canvas.create_image(0, 0, image=self.photo, anchor=tkinter.NW)
 
-            # TODO PUT MODEL HERE
-            #
-            #
-            #
             if self.is_record:
                 current_text = self.output_text.get()
                 if len(current_text) >= 10:
