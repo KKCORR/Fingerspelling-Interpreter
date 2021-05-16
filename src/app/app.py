@@ -36,6 +36,14 @@ class App:
                                                      onvalue=1, offvalue=0)
         self.skeleton_checkbox.pack()
 
+        # Show/Hide debug text
+        self.is_debug = tkinter.IntVar()
+        self.debug_checkbox = tkinter.Checkbutton(window, text="debug",
+                                                  variable=self.is_debug,
+                                                  onvalue=1, offvalue=0,
+                                                  command=self.toggle_debug)
+        self.debug_checkbox.pack()
+
         # Record Button
         self.is_record = False
         self.record_btn_text = tkinter.StringVar()
@@ -49,7 +57,6 @@ class App:
         self.debug_text_label = tkinter.Label(
             window, textvariable=self.debug_text, width=50, font=("TH Sarabun New", 25))
         self.debug_text.set("")
-        self.debug_text_label.pack(anchor=tkinter.CENTER, expand=True)
 
         self.output_text = tkinter.StringVar()
         self.output_text_label = tkinter.Label(
@@ -72,6 +79,12 @@ class App:
 
         self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.window.mainloop()
+
+    def toggle_debug(self):
+        if self.is_debug.get():
+            self.debug_text_label.pack(anchor=tkinter.CENTER, expand=True)
+        else:
+            self.debug_text_label.pack_forget()
 
     def get_record_btn_text(self, is_record):
         if is_record:
@@ -108,7 +121,8 @@ class App:
             self.canvas.create_image(0, 0, image=self.photo, anchor=tkinter.NW)
 
             if self.is_record:
-                self.debug_text.set(",".join(self.letter_queue[-15:]))
+                if self.is_debug:
+                    self.debug_text.set(",".join(self.letter_queue[-15:]))
                 self.output_text.set(sequence_to_text(self.letter_queue)[-15:])
 
         self.window.after(self.delay, self.update)
