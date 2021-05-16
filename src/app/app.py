@@ -48,7 +48,7 @@ class App:
         self.update()
 
         # Define hand tread
-        self.handThread = None
+        self.hand_thread = None
 
         # Load xgb model
         self.xgb_model = xgb_model
@@ -67,10 +67,10 @@ class App:
         self.record_btn_text.set(self.get_record_btn_text(self.is_record))
         if self.is_record:
             # Start predictor thread
-            self.handThread = HandThread(self)
-            self.handThread.start()
+            self.hand_thread = HandThread(self)
+            self.hand_thread.start()
         else:
-            self.handThread.stop()
+            self.hand_thread.stop()
             self.output_text.set("")
 
     def update(self):
@@ -98,8 +98,8 @@ class App:
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
-            if self.handThread:
-                self.handThread.stop()
+            if self.hand_thread:
+                self.hand_thread.stop()
             self.window.destroy()
 
 # Create a window and pass it to the Application object
