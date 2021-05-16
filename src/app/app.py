@@ -54,7 +54,7 @@ class App:
         self.delay = delay
         self.update()
 
-        # Define hand tread
+        # Define hand thread
         self.hand_thread = None
 
         # Load xgb model
