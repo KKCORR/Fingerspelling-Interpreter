@@ -28,6 +28,13 @@ class App:
             window, width=self.vid.width, height=self.vid.height)
         self.canvas.pack()
 
+        # Show/Hide skeleton
+        self.is_show_skeleton = tkinter.IntVar()
+        self.skeleton_checkbox = tkinter.Checkbutton(window, text="Show hand skeleton",
+                                                     variable=self.is_show_skeleton,
+                                                     onvalue=1, offvalue=0)
+        self.skeleton_checkbox.pack()
+
         # Record Button
         self.is_record = False
         self.record_btn_text = tkinter.StringVar()
@@ -80,7 +87,9 @@ class App:
         if ret:
             self.frame = cv2.flip(frame, 1)
             landmarked_frame = self.frame.copy()
-            self.hand_landmarker.draw_landmarks(landmarked_frame, self.landmarks)
+            if self.is_show_skeleton.get():
+                self.hand_landmarker.draw_landmarks(
+                    landmarked_frame, self.landmarks)
 
             self.photo = PIL.ImageTk.PhotoImage(
                 image=PIL.Image.fromarray(cv2.cvtColor(landmarked_frame, cv2.COLOR_BGR2RGB)))
@@ -101,6 +110,7 @@ class App:
             if self.hand_thread:
                 self.hand_thread.stop()
             self.window.destroy()
+
 
 # Create a window and pass it to the Application object
 xgb_model = xgb.Booster()
