@@ -9,6 +9,7 @@ import xgboost as xgb
 from app_video_capture import AppVideoCapture
 from hand_thread import HandThread
 from hand_landmark import HandLandmark
+from sequence_to_text import sequence_to_text
 
 
 class App:
@@ -44,6 +45,12 @@ class App:
         self.record_btn.pack(anchor=tkinter.CENTER, expand=True)
 
         # Output text from model
+        self.debug_text = tkinter.StringVar()
+        self.debug_text_label = tkinter.Label(
+            window, textvariable=self.debug_text, width=50, font=("TH Sarabun New", 25))
+        self.debug_text.set("")
+        self.debug_text_label.pack(anchor=tkinter.CENTER, expand=True)
+
         self.output_text = tkinter.StringVar()
         self.output_text_label = tkinter.Label(
             window, textvariable=self.output_text, width=50, font=("TH Sarabun New", 25))
@@ -82,6 +89,7 @@ class App:
         else:
             self.hand_thread.stop()
             self.output_text.set("")
+            self.debug_text.set("")
             self.letter_queue = []
 
     def update(self):
@@ -100,7 +108,8 @@ class App:
             self.canvas.create_image(0, 0, image=self.photo, anchor=tkinter.NW)
 
             if self.is_record:
-                self.output_text.set(' '.join(self.letter_queue))
+                self.debug_text.set(",".join(self.letter_queue[-15:]))
+                self.output_text.set(sequence_to_text(self.letter_queue)[-15:])
 
         self.window.after(self.delay, self.update)
 
