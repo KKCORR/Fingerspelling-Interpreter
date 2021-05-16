@@ -47,6 +47,9 @@ class App:
         self.delay = delay
         self.update()
 
+        # Define hand tread
+        self.handThread = None
+
         # Load xgb model
         self.xgb_model = xgb_model
 
@@ -95,7 +98,8 @@ class App:
 
     def on_closing(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
-            self.handThread.stop()
+            if self.handThread:
+                self.handThread.stop()
             self.window.destroy()
 
 # Create a window and pass it to the Application object
