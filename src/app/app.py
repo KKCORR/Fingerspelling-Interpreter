@@ -17,6 +17,7 @@ class App:
 
         # open video source (by default this will try to open the computer webcam)
         self.vid = AppVideoCapture(self.video_source)
+        self.frame = None
 
         # Create a canvas that can fit the above video source size
         self.canvas = tkinter.Canvas(
@@ -38,10 +39,6 @@ class App:
         self.output_text.set("")
         self.output_text_label.pack(anchor=tkinter.CENTER, expand=True)
 
-        # Start predictor thread
-        self.handThread = HandThread(self)
-        self.handThread.start()
-
         # After it is called once, the update method will be automatically called every delay milliseconds
         self.delay = delay
         self.update()
@@ -58,7 +55,12 @@ class App:
     def toggle_record(self):
         self.is_record = not self.is_record
         self.record_btn_text.set(self.get_record_btn_text(self.is_record))
-        if not self.is_record:
+        if self.is_record:
+            # Start predictor thread
+            self.handThread = HandThread(self)
+            self.handThread.start()
+        else:
+            self.handThread.stop()
             self.output_text.set("")
 
     def update(self):
@@ -66,6 +68,7 @@ class App:
         ret, frame = self.vid.get_frame()
 
         if ret:
+            self.frame = frame
             self.photo = PIL.ImageTk.PhotoImage(
                 image=PIL.Image.fromarray(cv2.flip(frame, 1)))
             self.canvas.create_image(0, 0, image=self.photo, anchor=tkinter.NW)
