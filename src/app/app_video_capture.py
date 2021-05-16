@@ -32,7 +32,7 @@ class AppVideoCapture:
         if self.vid.isOpened():
             ret, frame = self.vid.read()
             if ret:
-                return (ret, cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+                return (ret, frame)
             else:
                 return (ret, None)
         else:
