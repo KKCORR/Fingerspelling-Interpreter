@@ -51,6 +51,8 @@ class HandThread(StoppableThread):
                             self.consecutive_stable = 0
                             char, _ = self.char_predictor.best_predict(
                                 landmarks[0])
+                            if char == "ท1":
+                                char = "ต"
                             if self.cur_letter != char:
                                 self.cur_letter = char
                                 self.consecutive_stable_letter = 0
