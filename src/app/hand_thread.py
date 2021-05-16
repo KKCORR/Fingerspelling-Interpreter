@@ -3,6 +3,7 @@ import cv2
 from stoppable_thread import StoppableThread
 from hand_landmark import HandLandmark
 from char_predictor import CharPredictor
+from sequence_to_text import sequence_to_text
 import time
 
 
@@ -60,6 +61,7 @@ class HandThread(StoppableThread):
 
                             if self.consecutive_stable_letter == self.consecutive_letter:
                                 self.application.letter_queue.append(char)
+                                self.application.output_text.set(sequence_to_text(self.application.letter_queue)[-15:])
 
                         self.prev_landmarks = landmarks
                     else:

@@ -9,7 +9,6 @@ import xgboost as xgb
 from app_video_capture import AppVideoCapture
 from hand_thread import HandThread
 from hand_landmark import HandLandmark
-from sequence_to_text import sequence_to_text
 
 
 class App:
@@ -124,7 +123,6 @@ class App:
             if self.is_record:
                 if self.is_debug:
                     self.debug_text.set(",".join(self.letter_queue[-15:]))
-                self.output_text.set(sequence_to_text(self.letter_queue)[-15:])
 
         self.window.after(self.delay, self.update)
 
