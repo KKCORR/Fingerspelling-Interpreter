@@ -5,6 +5,7 @@ import PIL.ImageTk
 import time
 
 from app_video_capture import AppVideoCapture
+from hand_thread import HandThread
 
 
 class App:
@@ -35,6 +36,10 @@ class App:
             window, textvariable=self.output_text, width=50)
         self.output_text.set("")
         self.output_text_label.pack(anchor=tkinter.CENTER, expand=True)
+
+        # Start predictor thread
+        self.handThread = HandThread(self)
+        self.handThread.start()
 
         # After it is called once, the update method will be automatically called every delay milliseconds
         self.delay = delay
