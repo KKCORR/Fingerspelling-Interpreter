@@ -46,7 +46,7 @@ class App:
         # Output text from model
         self.output_text = tkinter.StringVar()
         self.output_text_label = tkinter.Label(
-            window, textvariable=self.output_text, width=50)
+            window, textvariable=self.output_text, width=50, font=("Arial", 25))
         self.output_text.set("")
         self.output_text_label.pack(anchor=tkinter.CENTER, expand=True)
 
@@ -59,6 +59,9 @@ class App:
 
         # Load xgb model
         self.xgb_model = xgb_model
+
+        # Letter queue
+        self.letter_queue = []
 
         self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.window.mainloop()
@@ -79,6 +82,7 @@ class App:
         else:
             self.hand_thread.stop()
             self.output_text.set("")
+            self.letter_queue = []
 
     def update(self):
         # Get a frame from the video source
@@ -96,12 +100,7 @@ class App:
             self.canvas.create_image(0, 0, image=self.photo, anchor=tkinter.NW)
 
             if self.is_record:
-                current_text = self.output_text.get()
-                if len(current_text) >= 10:
-                    new_text = ""
-                else:
-                    new_text = current_text + ">"
-                self.output_text.set(new_text)
+                self.output_text.set(' '.join(self.letter_queue))
 
         self.window.after(self.delay, self.update)
 
