@@ -1,4 +1,5 @@
 import tkinter
+from tkinter import messagebox
 import cv2
 import PIL.Image
 import PIL.ImageTk
@@ -45,6 +46,7 @@ class App:
         self.delay = delay
         self.update()
 
+        self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.window.mainloop()
 
     def get_record_btn_text(self, is_record):
@@ -78,6 +80,10 @@ class App:
 
         self.window.after(self.delay, self.update)
 
+    def on_closing(self):
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            self.handThread.stop()
+            self.window.destroy()
 
 # Create a window and pass it to the Application object
 App(tkinter.Tk(), "Real-time Thai fingerspelling interpreter")
