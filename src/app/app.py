@@ -47,7 +47,7 @@ class App:
         self.is_record = False
         self.record_btn_text = tkinter.StringVar()
         self.record_btn = tkinter.Button(
-            window, textvariable=self.record_btn_text, width=50, command=self.toggle_record)
+            window, textvariable=self.record_btn_text, width=50, command=self.toggle_record, bg="#ffffff", fg="#000000")
         self.record_btn_text.set(self.get_record_btn_text(self.is_record))
         self.record_btn.pack(anchor=tkinter.CENTER, expand=True)
 
@@ -104,6 +104,7 @@ class App:
             self.output_text.set("")
             self.debug_text.set("")
             self.letter_queue = []
+            self.record_btn.configure(bg="#ffffff", fg="#000000")
 
     def update(self):
         # Get a frame from the video source
