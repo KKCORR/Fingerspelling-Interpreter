@@ -69,3 +69,4 @@ class HandThread(StoppableThread):
                     self.prev_landmarks = landmarks[0]
                 else:
                     self.consecutive_stable = 0
+            time.sleep(0.0005)
