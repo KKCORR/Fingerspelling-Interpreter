@@ -28,20 +28,24 @@ class App:
             window, width=self.vid.width, height=self.vid.height)
         self.canvas.pack()
 
+        # Checkboxes frame
+        self.cb_frame = tkinter.Frame(window)
+        self.cb_frame.pack()
+
         # Show/Hide skeleton
         self.is_show_skeleton = tkinter.IntVar()
-        self.skeleton_checkbox = tkinter.Checkbutton(window, text="Show hand skeleton",
+        self.skeleton_checkbox = tkinter.Checkbutton(self.cb_frame, text="Show hand skeleton",
                                                      variable=self.is_show_skeleton,
                                                      onvalue=1, offvalue=0)
-        self.skeleton_checkbox.pack()
+        self.skeleton_checkbox.pack(side = tkinter.LEFT)
 
         # Show/Hide debug text
         self.is_debug = tkinter.IntVar()
-        self.debug_checkbox = tkinter.Checkbutton(window, text="debug",
+        self.debug_checkbox = tkinter.Checkbutton(self.cb_frame, text="debug",
                                                   variable=self.is_debug,
                                                   onvalue=1, offvalue=0,
                                                   command=self.toggle_debug)
-        self.debug_checkbox.pack()
+        self.debug_checkbox.pack(side = tkinter.LEFT)
 
         # Record Button
         self.is_record = False
