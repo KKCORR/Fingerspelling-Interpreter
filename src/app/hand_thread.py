@@ -66,6 +66,6 @@ class HandThread(StoppableThread):
                                 self.application.letter_queue.append(char)
                                 self.application.output_text.set(
                                     sequence_to_text(self.application.letter_queue)[-15:])
-                    self.prev_landmarks = cur_landmarks
+                    self.prev_landmarks = landmarks[0]
                 else:
                     self.consecutive_stable = 0
