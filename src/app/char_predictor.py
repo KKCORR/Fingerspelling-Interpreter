@@ -12,9 +12,9 @@ class CharPredictor:
     def get_features(self, hand_landmark):
         x = []
         y = []
-        for landmark in hand_landmark.landmark:
-            x.append(landmark.x)
-            y.append(landmark.y)
+        for i in range(21):
+            x.append(hand_landmark.landmark[i].x)
+            y.append(hand_landmark.landmark[i].y)
         norm_x = (np.array(x) - np.min(x)) / (np.max(x) - np.min(x))
         norm_y = (np.array(y) - np.min(y)) / (np.max(y) - np.min(y))
 

@@ -38,7 +38,10 @@ class HandThread(StoppableThread):
                 if landmarks:
                     if self.prev_landmarks:
                         dist = 0
-                        for lm, plm in zip(landmarks[0].landmark, self.prev_landmarks[0].landmark):
+                        cur_landmarks = landmarks[0]
+                        for i in range(21):
+                            lm = cur_landmarks.landmark[i]
+                            plm = self.prev_landmarks.landmark[i]
                             dist = (lm.x - plm.x)**2 + (
                                 lm.y - plm.y)**2 + (lm.z - plm.z)**2
                         dist = dist**0.5
@@ -51,7 +54,7 @@ class HandThread(StoppableThread):
                         if self.consecutive_stable == self.consecutive_seq:
                             self.consecutive_stable = 0
                             char, _ = self.char_predictor.best_predict(
-                                landmarks[0])
+                                cur_landmarks)
                             if char == "ท1":
                                 char = "ต"
                             if self.cur_letter != char:
@@ -61,10 +64,8 @@ class HandThread(StoppableThread):
 
                             if self.consecutive_stable_letter == self.consecutive_letter:
                                 self.application.letter_queue.append(char)
-                                self.application.output_text.set(sequence_to_text(self.application.letter_queue)[-15:])
-
-                        self.prev_landmarks = landmarks
-                    else:
-                        self.prev_landmarks = landmarks
+                                self.application.output_text.set(
+                                    sequence_to_text(self.application.letter_queue)[-15:])
+                    self.prev_landmarks = cur_landmarks
                 else:
                     self.consecutive_stable = 0
