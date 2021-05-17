@@ -99,12 +99,14 @@ class App:
             self.hand_thread = HandThread(self)
             self.hand_thread.start()
             self.record_btn.configure(bg="#fc5656", fg="#ffffff")
+            self.landmarks = None
         else:
             self.hand_thread.stop()
             self.output_text.set("")
             self.debug_text.set("")
             self.letter_queue = []
             self.record_btn.configure(bg="#ffffff", fg="#000000")
+            self.landmarks = None
 
     def update(self):
         # Get a frame from the video source
