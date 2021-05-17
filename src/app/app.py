@@ -51,7 +51,7 @@ class App:
         self.is_record = False
         self.record_btn_text = tkinter.StringVar()
         self.record_btn = tkinter.Button(
-            window, textvariable=self.record_btn_text, width=50, command=self.toggle_record, bg="#ffffff", fg="#000000")
+            window, textvariable=self.record_btn_text, width=20, padx=2, pady=1, command=self.toggle_record, bg="#368ae3", fg="#ffffff", font=("TH Sarabun New", 18, "bold"))
         self.record_btn_text.set(self.get_record_btn_text(self.is_record))
         self.record_btn.pack(anchor=tkinter.CENTER, expand=True)
 
@@ -91,9 +91,9 @@ class App:
 
     def get_record_btn_text(self, is_record):
         if is_record:
-            return "Recording..."
+            return "Stop"
         else:
-            return "Click to record"
+            return "Record"
 
     def toggle_record(self):
         self.is_record = not self.is_record
@@ -109,7 +109,7 @@ class App:
             self.output_text.set("")
             self.debug_text.set("")
             self.letter_queue = []
-            self.record_btn.configure(bg="#ffffff", fg="#000000")
+            self.record_btn.configure(bg="#368ae3", fg="#ffffff")
             self.landmarks = None
 
     def update(self):
